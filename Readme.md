@@ -7,11 +7,11 @@ Yes, it's an ORM.
 | Package | Description | NuGet |
 | ------- | ----------- | ----- |
 | Dappator | The core library | |
-| Dappator.Sql | Strongly Typed Query Builder + Data Context with Dapper for MSSQL | [![Dapper](https://img.shields.io/nuget/v/Dapper.svg)](https://www.nuget.org/packages/Dapper/) |
-| Dappator.MySql | Strongly Typed Query Builder + Data Context with Dapper for MySql | [![Dapper](https://img.shields.io/nuget/v/Dapper.svg)](https://www.nuget.org/packages/Dapper/) |
-| Dappator.Oracle | Strongly Typed Query Builder + Data Context with Dapper for Oracle | [![Dapper](https://img.shields.io/nuget/v/Dapper.svg)](https://www.nuget.org/packages/Dapper/) |
-| Dappator.PostgreSql | Strongly Typed Query Builder + Data Context with Dapper for PostgreSql | [![Dapper](https://img.shields.io/nuget/v/Dapper.svg)](https://www.nuget.org/packages/Dapper/) |
-| Dappator.Sqlite | Strongly Typed Query Builder + Data Context with Dapper for Sqlite | [![Dapper](https://img.shields.io/nuget/v/Dapper.svg)](https://www.nuget.org/packages/Dapper/) |
+| Dappator.Sql | Strongly Typed Query Builder + Data Context with Dapper for MSSQL | [![Dappator.Sql](https://img.shields.io/nuget/v/Dappator.Sql.svg)](https://www.nuget.org/packages/Dappator.Sql/) |
+| Dappator.MySql | Strongly Typed Query Builder + Data Context with Dapper for MySql | [![Dappator.MySql](https://img.shields.io/nuget/v/Dappator.MySql.svg)](https://www.nuget.org/packages/Dappator.MySql/) |
+| Dappator.Oracle | Strongly Typed Query Builder + Data Context with Dapper for Oracle | [![Dappator.Oracle](https://img.shields.io/nuget/v/Dappator.Oracle.svg)](https://www.nuget.org/packages/Dappator.Oracle/) |
+| Dappator.PostgreSql | Strongly Typed Query Builder + Data Context with Dapper for PostgreSql | [![Dappator.PostgreSql](https://img.shields.io/nuget/v/Dappator.PostgreSql.svg)](https://www.nuget.org/packages/Dappator.PostgreSql/) |
+| Dappator.Sqlite | Strongly Typed Query Builder + Data Context with Dapper for Sqlite | [![Dappator.Sqlite](https://img.shields.io/nuget/v/Dappator.Sqlite.svg)](https://www.nuget.org/packages/Dappator.Sqlite/) |
 
 > [!IMPORTANT]
 > You don't have to install "Dappator" package.

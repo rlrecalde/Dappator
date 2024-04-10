@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Version>1.0.0.0</Version>
+		<Title>Dappator</Title>
+		<Authors>Roberto Recalde</Authors>
+		<Description>Strongly Typed Query Builder + Data Context with Dapper for MSSQL, MySQL, SQLite, PostgreSQL and Oracle. This package is for internal use. Please, install one of the Dappator.xxx packages (where 'xxx' correponds to a database provider).</Description>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/rlrecalde/Dappator</RepositoryUrl>
+		<PackageTags>orm;micro-orm;querybuilder;dapper;sql;mysql;oracle;postgresql;sqlite</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dappator.Common\Dappator.Common.csproj">
+			<ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+			<IncludeAssets>Dappator.Common.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\Dappator.Internal\Dappator.Internal.csproj">
+			<ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+			<IncludeAssets>Dappator.Internal.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\Dappator.Interfaces\Dappator.Interfaces.csproj">
+			<ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+			<IncludeAssets>Dappator.Interfaces.dll</IncludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Dappator.Sql" />
+		<InternalsVisibleTo Include="Dappator.Sql.Test" />
+		<InternalsVisibleTo Include="Dappator.Sqlite" />
+		<InternalsVisibleTo Include="Dappator.Sqlite.Test" />
+		<InternalsVisibleTo Include="Dappator.PostgreSql" />
+		<InternalsVisibleTo Include="Dappator.PostgreSql.Test" />
+		<InternalsVisibleTo Include="Dappator.MySql" />
+		<InternalsVisibleTo Include="Dappator.MySql.Test" />
+		<InternalsVisibleTo Include="Dappator.Oracle" />
+		<InternalsVisibleTo Include="Dappator.Oracle.Test" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="docs\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="docs\Readme.md" Pack="true" PackagePath="\" />
+		<None Include="readme.txt" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+
+</Project>

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Version>1.0.0.0</Version>
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="'$(Configuration)' == 'Debug'">
+			<ItemGroup>
+				<ProjectReference Include="..\Dappator\Dappator.csproj" PrivateAssets="All" />
+				<ProjectReference Include="..\Dappator.Internal\Dappator.Internal.csproj" PrivateAssets="All" />
+				<ProjectReference Include="..\Dappator.Interfaces\Dappator.Interfaces.csproj" PrivateAssets="All" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Dappator" Version="1.0.0" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Dappator.Oracle" />
+		<InternalsVisibleTo Include="Dappator.Oracle.Test" />
+	</ItemGroup>
+
+</Project>

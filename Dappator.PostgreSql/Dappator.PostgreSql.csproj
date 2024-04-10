@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Version>1.0.0.0</Version>
+		<Title>Dappator.Sql</Title>
+		<Authors>Roberto Recalde</Authors>
+		<Description>Strongly Typed Query Builder + Data Context with Dapper for PostgreSql</Description>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/rlrecalde/Dappator</RepositoryUrl>
+		<PackageTags>orm;micro-orm;querybuilder;dapper;postgresql</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="'$(Configuration)' == 'Debug'">
+			<ItemGroup>
+				<ProjectReference Include="..\Dappator\Dappator.csproj" PrivateAssets="All" />
+				<ProjectReference Include="..\Dappator.Internal\Dappator.Internal.csproj" PrivateAssets="All" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Dappator" Version="1.0.0" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.1.35" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Npgsql" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Npgsql" Version="5.0.17" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Npgsql" Version="7.0.6" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Npgsql" Version="8.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dappator.PostgreSql.Internal\Dappator.PostgreSql.Internal.csproj">
+			<ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+			<IncludeAssets>Dappator.PostgreSql.Internal.dll</IncludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="docs\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="docs\Readme.md" Pack="true" PackagePath="\" />
+		<None Include="readme.txt" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+
+</Project>

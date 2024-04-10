@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Version>1.0.0.0</Version>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.1.35" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dappator.Common\Dappator.Common.csproj" PrivateAssets="All" />
+		<ProjectReference Include="..\Dappator.Interfaces\Dappator.Interfaces.csproj" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Dappator" />
+		<InternalsVisibleTo Include="Dappator.Internal.Test" />
+		<InternalsVisibleTo Include="Dappator.Sql" />
+		<InternalsVisibleTo Include="Dappator.Sql.Internal" />
+		<InternalsVisibleTo Include="Dappator.Sql.Test" />
+		<InternalsVisibleTo Include="Dappator.Sqlite" />
+		<InternalsVisibleTo Include="Dappator.Sqlite.Internal" />
+		<InternalsVisibleTo Include="Dappator.Sqlite.Test" />
+		<InternalsVisibleTo Include="Dappator.PostgreSql" />
+		<InternalsVisibleTo Include="Dappator.PostgreSql.Internal" />
+		<InternalsVisibleTo Include="Dappator.PostgreSql.Test" />
+		<InternalsVisibleTo Include="Dappator.MySql" />
+		<InternalsVisibleTo Include="Dappator.MySql.Internal" />
+		<InternalsVisibleTo Include="Dappator.MySql.Test" />
+		<InternalsVisibleTo Include="Dappator.Oracle" />
+		<InternalsVisibleTo Include="Dappator.Oracle.Internal" />
+		<InternalsVisibleTo Include="Dappator.Oracle.Test" />
+	</ItemGroup>
+
+</Project>

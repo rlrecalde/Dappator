@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-		<Version>1.0.0.0</Version>
+		<Version>1.0.1.0</Version>
 		<Title>Dappator</Title>
 		<Authors>Roberto Recalde</Authors>
 		<Description>Strongly Typed Query Builder + Data Context with Dapper for MSSQL, MySQL, SQLite, PostgreSQL and Oracle. This package is for internal use. Please, install one of the Dappator.xxx packages (where 'xxx' correponds to a database provider).</Description>

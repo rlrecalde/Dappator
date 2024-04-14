@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-		<Version>1.0.0.0</Version>
+		<Version>1.0.1.0</Version>
 		<Title>Dappator.Sql</Title>
 		<Authors>Roberto Recalde</Authors>
 		<Description>Strongly Typed Query Builder + Data Context with Dapper for MSSQL</Description>
@@ -11,6 +11,7 @@
 		<RepositoryUrl>https://github.com/rlrecalde/Dappator</RepositoryUrl>
 		<PackageTags>orm;micro-orm;querybuilder;dapper;sql</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageReleaseNotes>https://github.com/rlrecalde/Dappator#release-notes</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Choose>
@@ -22,13 +23,13 @@
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<PackageReference Include="Dappator" Version="1.0.0" />
+				<PackageReference Include="Dappator" Version="1.0.1.0" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
 
 	<ItemGroup>
-		<PackageReference Include="Dapper" Version="2.1.35" />
+		<PackageReference Include="Dapper" Version="2.1.44" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">

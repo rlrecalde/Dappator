@@ -61,12 +61,20 @@ namespace Dappator.Sqlite.Test
                 "   DateTime DATETIME NULL, " +
                 "   DateTimeOffset DATETIMEOFFSET NULL, " +
                 "   TimeSpan TIME NULL, " +
-                "   Bytes BINARY NULL, " +
-                "   DateOnly DATE NULL, " +
-                "   TimeOnly TIME NULL " +
+                "   Bytes BINARY NULL " +
                 ");";
 
             this.ExecuteNonQuery(createDataType, this._sqliteConnection);
+
+            string createDateAndTime = "" +
+                "CREATE TABLE DateAndTime (" +
+                "   Id INTEGER PRIMARY KEY, " +
+                "   DateTime DATETIME NULL, " +
+                "   DateOnly DATE NULL, " +
+                "   TimeOnly TIME NULL" +
+                ");";
+
+            this.ExecuteNonQuery(createDateAndTime, this._sqliteConnection);
 
             string deleteUserValue = "DELETE FROM UserValue";
 

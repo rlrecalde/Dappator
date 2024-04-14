@@ -57,8 +57,6 @@ namespace Dappator.Oracle.Test
                     ""DateTimeOffset"" TIMESTAMP NULL,
                     ""TimeSpan"" INTERVAL DAY TO SECOND NULL,
                     ""Bytes"" RAW(100) NULL,
-                    ""DateOnly"" DATE NULL,
-                    ""TimeOnly"" TIMESTAMP NULL,
                     CONSTRAINT PK_DataType PRIMARY KEY (Id)
                 )";
 

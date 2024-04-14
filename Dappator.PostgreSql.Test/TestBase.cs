@@ -57,12 +57,21 @@ namespace Dappator.PostgreSql.Test
                     ""dateTimeOffset"" TIMESTAMP with time zone NULL,
                     ""timeSpan"" TIME NULL,
                     ""bytes"" BYTEA NULL,
-                    ""dateonly"" DATE NULL,
-                    ""timeonly"" TIME NULL,
                     CONSTRAINT datatype_pk PRIMARY KEY (id)
                 )";
 
             this.ExecuteNonQuery(createDataType, dbConnection);
+
+            string createDateAndTime = @"
+                CREATE TABLE IF NOT EXISTS public.dateandtime (
+                    id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
+                    ""datetime"" TIMESTAMP NOT NULL,
+                    dateonly DATE NOT NULL,
+                    timeonly TIME NOT NULL,
+                    CONSTRAINT dateandtime_pk PRIMARY KEY (id)
+                )";
+
+            this.ExecuteNonQuery(createDateAndTime, dbConnection);
 
             string deleteUserValue = "DELETE FROM public.uservalue";
 
@@ -75,6 +84,10 @@ namespace Dappator.PostgreSql.Test
             string deleteDataType = "DELETE FROM public.datatype";
 
             this.ExecuteNonQuery(deleteDataType, dbConnection);
+
+            string deleteDateAndTime = "DELETE FROM dateandtime";
+
+            this.ExecuteNonQuery(deleteDateAndTime, dbConnection);
 
             this.Dispose(dbConnection);
         }

@@ -3,7 +3,7 @@
   <PropertyGroup>
 		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<Version>1.0.1.0</Version>
-		<Title>Dappator.Sql</Title>
+		<Title>Dappator.Oracle</Title>
 		<Authors>Roberto Recalde</Authors>
 		<Description>Strongly Typed Query Builder + Data Context with Dapper for Oracle</Description>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>

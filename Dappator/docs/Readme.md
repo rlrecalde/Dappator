@@ -13,5 +13,5 @@ Yes, it's an ORM.
 | Dappator.PostgreSql | Strongly Typed Query Builder + Data Context with Dapper for PostgreSql | [![Dappator.PostgreSql](https://img.shields.io/nuget/v/Dappator.PostgreSql.svg)](https://www.nuget.org/packages/Dappator.PostgreSql/) |
 | Dappator.Sqlite | Strongly Typed Query Builder + Data Context with Dapper for Sqlite | [![Dappator.Sqlite](https://img.shields.io/nuget/v/Dappator.Sqlite.svg)](https://www.nuget.org/packages/Dappator.Sqlite/) |
 
-> You don't have to install this "Dappator" package.
+> You don't have to install this "Dappator" package.  
 > Whatever the provider you want to use, you have to install "Dappator._Provider_" package.

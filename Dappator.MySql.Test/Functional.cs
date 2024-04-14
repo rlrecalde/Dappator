@@ -6034,5 +6034,63 @@ namespace Dappator.MySql.Test
         }
 
         #endregion
+
+#if NET6_0_OR_GREATER
+
+        [Test]
+        public void Insert_Dates()
+        {
+            #region Arrange
+
+            var dateTime = new DateTime(2001, 2, 3, 4, 5, 6);
+            var dateOnly = new DateOnly(2002, 3, 4);
+            var timeOnly = new TimeOnly(7, 8, 9);
+
+            var dataContext = new DataContext(base._connectionString);
+
+            #endregion
+
+            #region Act
+
+            int id = (int)dataContext
+                .Insert<Model.DateAndTime>(x => new { x.DateTime, x.DateOnly, x.TimeOnly }, dateTime, dateOnly, timeOnly)
+                .ExecuteScalar();
+
+            #endregion
+
+            #region Assert
+
+            Assert.That(id, Is.GreaterThan(0));
+
+            Model.DateAndTime dateAndTime = dataContext
+                .Select<Model.DateAndTime>(x => new { x.Id, x.DateTime, x.DateOnly, x.TimeOnly })
+                .Where<Model.DateAndTime>(x => x.Id, Common.Operators.EqualTo, id)
+                .OrderBy<Model.DateAndTime>(x => x.Id, Common.Orders.Ascending)
+                .LimitOffset(1)
+                .QueryFirstOrDefault<Model.DateAndTime>();
+
+            dataContext.Dispose();
+
+            Assert.IsNotNull(dateAndTime);
+
+            Assert.That(dateAndTime.DateTime.Year, Is.EqualTo(dateTime.Year));
+            Assert.That(dateAndTime.DateTime.Month, Is.EqualTo(dateTime.Month));
+            Assert.That(dateAndTime.DateTime.Day, Is.EqualTo(dateTime.Day));
+            Assert.That(dateAndTime.DateTime.Hour, Is.EqualTo(dateTime.Hour));
+            Assert.That(dateAndTime.DateTime.Minute, Is.EqualTo(dateTime.Minute));
+            Assert.That(dateAndTime.DateTime.Second, Is.EqualTo(dateTime.Second));
+
+            Assert.That(dateAndTime.DateOnly.Year, Is.EqualTo(dateOnly.Year));
+            Assert.That(dateAndTime.DateOnly.Month, Is.EqualTo(dateOnly.Month));
+            Assert.That(dateAndTime.DateOnly.Day, Is.EqualTo(dateOnly.Day));
+
+            Assert.That(dateAndTime.TimeOnly.Hour, Is.EqualTo(timeOnly.Hour));
+            Assert.That(dateAndTime.TimeOnly.Minute, Is.EqualTo(timeOnly.Minute));
+            Assert.That(dateAndTime.TimeOnly.Second, Is.EqualTo(timeOnly.Second));
+
+            #endregion
+        }
+
+#endif
     }
 }

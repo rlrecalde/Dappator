@@ -58,12 +58,21 @@ namespace Dappator.MySql.Test
                     `DateTimeOffset` TIMESTAMP NULL,
                     `TimeSpan` TIME NULL,
                     `Bytes` VARBINARY(100) NULL,
-                    `DateOnly` DATE NULL,
-                    `TimeOnly` TIME NULL,
                     CONSTRAINT PK_DataType PRIMARY KEY (Id)
                 )";
 
             this.ExecuteNonQuery(createDataType, dbConnection);
+
+            string createDateAndTime = @"
+                CREATE TABLE IF NOT EXISTS DateAndTime (
+                    Id INT AUTO_INCREMENT NOT NULL,
+                    `DateTime` DATETIME NOT NULL,
+                    DateOnly DATE NOT NULL,
+                    TimeOnly TIME NOT NULL,
+                    CONSTRAINT PK_DateAndTime PRIMARY KEY (Id)
+                )";
+
+            this.ExecuteNonQuery(createDateAndTime, dbConnection);
 
             string deleteUserValue = "DELETE FROM `UserValue`";
 
@@ -76,6 +85,10 @@ namespace Dappator.MySql.Test
             string deleteDataType = "DELETE FROM `DataType`";
 
             this.ExecuteNonQuery(deleteDataType, dbConnection);
+
+            string deleteDateAndTime = "DELETE FROM DateAndTime";
+
+            this.ExecuteNonQuery(deleteDateAndTime, dbConnection);
 
             this.Dispose(dbConnection);
         }

@@ -14,7 +14,7 @@ Yes, it's an ORM.
 | Dappator.Sqlite | Strongly Typed Query Builder + Data Context with Dapper for Sqlite | [![Dappator.Sqlite](https://img.shields.io/nuget/v/Dappator.Sqlite.svg)](https://www.nuget.org/packages/Dappator.Sqlite/) |
 
 > [!IMPORTANT]
-> You don't have to install "Dappator" package.
+> You don't have to install "Dappator" package.  
 > Whatever the provider you want to use, you have to install "Dappator._Provider_" package.
 
 ## Usage
@@ -40,7 +40,7 @@ namespace Whatever
 }
 ```
 > [!NOTE]
-> _Description attribute over the class represents the table name._
+> _Description attribute over the class represents the table name._  
 > _Description attributes over the properties represent the column names._
 
 Then, instantiate a DataContext object and use it:
@@ -111,22 +111,23 @@ namespace Whatever
   - [QueryBuilderError test class](#querybuildererror-test-class)
   - [Mock test class](#mock-test-class)
   - [Functional test class](#functional-test-class)
+- [Release Notes](#release-notes)
 
 ## How does it work
 
 When DataContext is instantiated, it creates a DbConnection object with the supplied connectionstring.
 Of course, it depends on the provider you are using. For example, for Dappator.Sql it creates a SqlConnection object; for Dappator.MySql, it creates a MySqlConnection object, etcetera.
 
-Then, certain methods are available for creating the query.
-Each of these methods makes available other methods. For example:
-Select() makes available Where().
-Where() makes available And(), Or().
-All of them make available GroupBy(), OrderBy().
-Etcetera.
-Finally, the executable methods:
-For Insert() -> ExecuteScalar().
-For Update() & Delete() -> Execute().
-For Select() -> Query(), QuerySingle(), QueryFirst(), etcetera.
+Then, certain methods are available for creating the query.  
+Each of these methods makes available other methods. For example:  
+Select() makes available Where().  
+Where() makes available And(), Or().  
+All of them make available GroupBy(), OrderBy().  
+Etcetera.  
+Finally, the executable methods:  
+For Insert() -> ExecuteScalar().  
+For Update() & Delete() -> Execute().  
+For Select() -> Query(), QuerySingle(), QueryFirst(), etcetera.  
 All of the executable methods from Dapper (the extension methods that Dapper offers) are available.
 
 Then, when one of those executable methods is called, the built query is sent to Dapper along with the supplied values.
@@ -142,7 +143,7 @@ Now, let's take a look in more detail.
 
 ## DataContext
 
-It implements IDataContext interface, in order to be used on IoC.
+It implements IDataContext interface, in order to be used on IoC.  
 It is responsible of managing the DbConnection object.
 
 It has the following properties and methods:
@@ -185,11 +186,11 @@ namespace Whatever
 ```
 And then, you inject Dappator.IDataContext wherever you want.
 
-But sometimes, you need more than one connection to the database, let's say for CQRS compliance.
-Sometimes, you want to do functional tests using a Sqlite in-memory database (which needs two different connections/providers for the same injected interface).
+But sometimes, you need more than one connection to the database, let's say for CQRS compliance.  
+Sometimes, you want to do functional tests using a Sqlite in-memory database (which needs two different connections/providers for the same injected interface).  
 And sometimes, you do a Background Service (which needs a Singleton injection) besides your regular access to the database (where you also need two different connections).
 
-So, best practice for IoC configuration is not what we've seen before.
+So, best practice for IoC configuration is not what we've seen before.  
 Best practice is:
 
 First, declare your own interface which implements Dappator.IDataContext:
@@ -229,15 +230,15 @@ namespace Whatever
     }
 }
 ```
-That way, if you need two different connections for, let's say, CQRS compliance, you just create two different interfaces with two different DataContexts.
+That way, if you need two different connections for, let's say, CQRS compliance, you just create two different interfaces with two different DataContexts.  
 If you need a Sqlite in-memory database connection for your tests, you just create one interface and two different DataContexts that implement that same interface.
 
-One last interesting thing about Dappator.Sqlite package:
-DataContext object for this particular package has two different constructors: one for the "string connectionstring" parameter, and the other one for "SqliteConnection" parameter; and both of them have an extra boolean parameter named "preventClosing".
-This is because we know if we want to use a Sqlite in-memory database on our tests, we must create a connection once and never close it until the test is complete.
-So, instead of configuring our IoC with a connectionstring for Sqlite, we configure it with a SqliteConnection we create outside the IoC configuration and, by setting "preventClosing" parameter to true, we tell DataContext to not close the connection when it is disposed or even when we explicitly call "DataContext.Close()" method in our code.
-But why would we call "DataContext.Close()" method in our code, if we know everytime DataContext is disposed, it closes the connection to the database?
-Well, in case you do a Background service and configure the DataContext as a Singleton object, it is gonna be alive for ever. And maybe, you don't want the connection to the database to remains open for ever. So, in that case, everytime your Background service needs to access the database, you call "DataContext.Close()" method at the end of your code.
+One last interesting thing about Dappator.Sqlite package:  
+DataContext object for this particular package has two different constructors: one for the "string connectionstring" parameter, and the other one for "SqliteConnection" parameter; and both of them have an extra boolean parameter named "preventClosing".  
+This is because we know if we want to use a Sqlite in-memory database on our tests, we must create a connection once and never close it until the test is complete.  
+So, instead of configuring our IoC with a connectionstring for Sqlite, we configure it with a SqliteConnection we create outside the IoC configuration and, by setting "preventClosing" parameter to true, we tell DataContext to not close the connection when it is disposed or even when we explicitly call "DataContext.Close()" method in our code.  
+But why would we call "DataContext.Close()" method in our code, if we know everytime DataContext is disposed, it closes the connection to the database?  
+Well, in case you do a Background service and configure the DataContext as a Singleton object, it is gonna be alive for ever. And maybe, you don't want the connection to the database to remains open for ever. So, in that case, everytime your Background service needs to access the database, you call "DataContext.Close()" method at the end of your code.  
 And don't worry, the next time you ask DataContext for a new query to be executed, it opens a new connection in case it was previously closed.
 
 ## QueryBuilder Methods
@@ -407,9 +408,9 @@ DELETE FROM dbo.User
 ``` csharp
 Where<T>(Expression<Func<T, object>> property, Common.Operators op, object value = null, object valueTo = null)
 ```
-For `property` parameter, a lambda expression with a property of T must be supplied.
-For `op` parameter, an enum value from Dappator.Common.Operators must be supplied.
-For `value` parameter, a value can be supplied.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
+For `op` parameter, an enum value from Dappator.Common.Operators must be supplied.  
+For `value` parameter, a value can be supplied.  
 For `valueTo` parameter, a value can be supplied.
 
 Special cases:
@@ -439,10 +440,10 @@ And<T>(Expression<Func<T, object>> property, Common.Operators op, object value =
 ``` csharp
 Or<T>(Expression<Func<T, object>> property, Common.Operators op, object value = null, object valueTo = null, bool openParenthesisBeforeCondition = false, bool closeParenthesisAfterCondition = false)
 ```
-They work pretty much the same as Where(), except for two extra boolean parameters:
+They work pretty much the same as Where(), except for two extra boolean parameters:  
 `openParenthesisBeforeCondition` & `closeParenthesisAfterCondition`
 
-The idea is to be able to enclosure conditions between parenthesis.
+The idea is to be able to enclosure conditions between parenthesis.  
 For example, let's say we have the following filter:
 ``` sql
 AND condition1 OR (condition2 AND condition3)
@@ -492,13 +493,13 @@ And, of course, you can continue adding And(), Or() & CloseParenthesis() methods
 ``` csharp
 Select<T>(Expression<Func<T, dynamic>> properties, bool distinct = false, string alias = null, Action<Interfaces.IQueryBuilderAggregate> aggregate = null)
 ```
-For `properties` parameter, a lambda expression with an anonymous object containing properties of T must be supplied.
-For `distinct` parameter, a boolean that indicates whether a "DISTINCT" string has to be introduced in the SELECT statement.
-For `alias` parameter, a string for the "AS _alias_" that represents the table when it's needed.
+For `properties` parameter, a lambda expression with an anonymous object containing properties of T must be supplied.  
+For `distinct` parameter, a boolean that indicates whether a "DISTINCT" string has to be introduced in the SELECT statement.  
+For `alias` parameter, a string for the "AS _alias_" that represents the table when it's needed.  
 For `aggregate` parameter, an Action for aggregate functions.
 
-We've already seen an example of this method at the beginning.
-We'll see an example of the "alias" parameter usage later.
+We've already seen an example of this method at the beginning.  
+We'll see an example of the "alias" parameter usage later.  
 So now, let's focus on aggregate functions.
 
 ## Aggregate functions [Count(), Max(), Min(), Sum() & Avg()]
@@ -513,10 +514,10 @@ SomeClass some = await dataContext
         })
     .QueryFirstOrDefaultAsync<SomeClass>();
 ```
-Here, we assumed that we declared a "SomeClass" class with a property named "Ids".
-Then, we didn't set any property to the Select() statement because we just want a Count() over the Id column.
-Then, we introduced an Action<> that allows us to call these five aggregate functions.
-Finally, we set an alias to that Count().
+Here, we assumed that we declared a "SomeClass" class with a property named "Ids".  
+Then, we didn't set any property to the Select() statement because we just want a Count() over the Id column.  
+Then, we introduced an Action<> that allows us to call these five aggregate functions.  
+Finally, we set an alias to that Count().  
 This is important because, after the query is executed, the resulting data has to be mapped to an entity by Dapper and, of course, Dapper needs a name for every column of the resulting data in order to map them to the properties of that entity.
 
 This example makes the following sql query:
@@ -554,10 +555,10 @@ Sum<T>(Expression<Func<T, object>> property, string cast = null, string alias = 
 ``` csharp
 Avg<T>(Expression<Func<T, object>> property, string cast = null, string alias = null, string tableAlias = null)
 ```
-For `property` parameter, a lambda expression with a property of T must be supplied.
-For `distinct` parameter (only available on Count()), a boolean that indicates whether a "DISTINCT" string has to be introduced in the COUNT statement.
-For `cast` parameter, a string representing the data type for casting the resulting value (we will see an example later).
-For `alias` parameter, a string for the "AS _alias_" that represents the column name of the resulting value.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
+For `distinct` parameter (only available on Count()), a boolean that indicates whether a "DISTINCT" string has to be introduced in the COUNT statement.  
+For `cast` parameter, a string representing the data type for casting the resulting value (we will see an example later).  
+For `alias` parameter, a string for the "AS _alias_" that represents the column name of the resulting value.  
 For `tableAlias` parameter, a string for the "_alias_._ColumnName_" that represents the table alias used on the Select() statement.
 
 ## Cast()
@@ -583,8 +584,8 @@ SELECT
    CAST(dbo.User.Payment AS BIGINT) AS Payment 
 FROM dbo.User
 ```
-For `property` parameter, a lambda expression with a property of T must be supplied.
-For `castType` parameter, a string representing the data type for casting the resulting value.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
+For `castType` parameter, a string representing the data type for casting the resulting value.  
 For `alias` parameter, a string for the "_alias.ColumnName_" that represents the table alias used on the Select() statement.
 
 ## InnerJoin() & LeftJoin()
@@ -595,12 +596,12 @@ InnerJoin<T1, T2>(Expression<Func<T1, object>> propertyEntity1, Expression<Func<
 ``` csharp
 LeftJoin<T1, T2>(Expression<Func<T1, object>> propertyEntity1, Expression<Func<T2, object>> propertyEntity2, Expression<Func<T2, dynamic>> properties = null, string sourceAlias = null, string targetAlias = null)
 ```
-`T1` corresponds to source table.
-`T2` corresponds to target table.
-For `propertyEntity1` parameter, a lambda expression with a property of T1 must be supplied.
-For `propertyEntity2` parameter, a lambda expression with a property of T2 must be supplied.
-For `properties` parameter, a lambda expression with an anonymous object containing properties of T2 must be supplied (the ones that you want to include in the SELECT statement).
-For `sourceAlias` parameter, a string that represents the alias used on the Select() statement.
+`T1` corresponds to source table.  
+`T2` corresponds to target table.  
+For `propertyEntity1` parameter, a lambda expression with a property of T1 must be supplied.  
+For `propertyEntity2` parameter, a lambda expression with a property of T2 must be supplied.  
+For `properties` parameter, a lambda expression with an anonymous object containing properties of T2 must be supplied (the ones that you want to include in the SELECT statement).  
+For `sourceAlias` parameter, a string that represents the alias used on the Select() statement.  
 For `targetAlias` parameter, a string for the "AS _alias_" that represents the table T2.
 
 Let's start with a simple example:
@@ -623,7 +624,7 @@ LEFT JOIN dbo.Car
    ON dbo.User.Id = dbo.Car.UserId
 ```
 
-But what if we want to join a table with itself?
+But what if we want to join a table with itself?  
 Here comes in action "alias" parameters we were talking about on Select(), aggregate functions and Cast().
 
 Let's complicate the sql query:
@@ -661,7 +662,7 @@ IEnumerable<SomeClass> some = await dataContext
 ``` csharp
 Where<T>(Expression<Func<T, object>> property, Common.Operators op, object value = null, object valueTo = null, string alias = null)
 ```
-This works pretty much the same as Where() for Update & Delete, except for the extra `alias` parameter.
+This works pretty much the same as Where() for Update & Delete, except for the extra `alias` parameter.  
 As we've seen before, this parameter is just for determining the table where the filter is gonna be applied, in case we made some joins over same tables and we set aliases on them.
 
 ## And() & Or() [From Select's Where]
@@ -672,7 +673,7 @@ And<T>(Expression<Func<T, object>> property, Common.Operators op, object value =
 ``` csharp
 Or<T>(Expression<Func<T, object>> property, Common.Operators op, object value = null, object valueTo = null, bool openParenthesisBeforeCondition = false, bool closeParenthesisAfterCondition = false, string alias = null)
 ```
-They work pretty much the same as And() & Or() from Update's & Delete's Where, except for the extra `alias` parameter.
+They work pretty much the same as And() & Or() from Update's & Delete's Where, except for the extra `alias` parameter.  
 As we've seen before, this parameter is just for determining the table where the filter is gonna be applied, in case we made some joins over same tables and we set aliases on them.
 
 ## GroupBy()
@@ -680,7 +681,7 @@ As we've seen before, this parameter is just for determining the table where the
 ``` csharp
 GroupBy<T>(Expression<Func<T, object>> property, string alias = null)
 ```
-For `property` parameter, a lambda expression with a property of T must be supplied.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
 For `alias` parameter, a string for the "_alias.ColumnName_" that represents the table alias used on the Select() or xxxJoin() statements.
 
 For example:
@@ -705,7 +706,7 @@ GROUP BY dbo.User.Id
 ``` csharp
 AndBy<T>(Expression<Func<T, object>> property, string alias = null)
 ```
-For `property` parameter, a lambda expression with a property of T must be supplied.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
 For `alias` parameter, a string for the "_alias.ColumnName_" that represents the table alias used on the Select() or xxxJoin() statements.
 
 Since GroupBy() only allows us to set just one property, in case we need to add more columns to the "GROUP BY" statement, we use AndBy() (as many as we want).
@@ -739,12 +740,12 @@ OrderBy<T>(Expression<Func<T, object>> property, Common.Orders order, string ali
 OrderBy<T>(string alias, Common.Orders order)
 ```
 First overload:
-For `property` parameter, a lambda expression with a property of T must be supplied.
-For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
+For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.  
 For `alias` parameter, a string for the "_alias.ColumnName_" that represents the table alias used on the Select() or xxxJoin() statements.
 
 Second overload:
-For `alias` parameter, a string that represents the alias used on an aggregate function.
+For `alias` parameter, a string that represents the alias used on an aggregate function.  
 For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.
 
 For example:
@@ -785,12 +786,12 @@ ThenBy<T>(Expression<Func<T, object>> property, Common.Orders order, string alia
 ThenBy<T>(string alias, Common.Orders order)
 ```
 First overload:
-For `property` parameter, a lambda expression with a property of T must be supplied.
-For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.
+For `property` parameter, a lambda expression with a property of T must be supplied.  
+For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.  
 For `alias` parameter, a string for the "_alias.ColumnName_" that represents the table alias used on the Select() or xxxJoin() statements.
 
 Second overload:
-For `alias` parameter, a string that represents the alias used on an aggregate function.
+For `alias` parameter, a string that represents the alias used on an aggregate function.  
 For `order` parameter, an enum value from Dappator.Common.Orders must be supplied.
 
 Since OrderBy() only allows us to set just one property, in case we need to add more columns to the "ORDER BY" statement, we use ThenBy() (as many as we want).
@@ -875,7 +876,7 @@ It executes a stored procedure.
 ``` csharp
 StoredProcedure<T>(Expression<Func<T, dynamic>> properties = null, params object[] values)
 ```
-For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.
+For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.  
 For `values` parameter, comma separated values can be supplied.
 
 First of all, class T represents the stored procedure; that means, its name and its parameters.
@@ -950,12 +951,12 @@ It executes a table-valued function.
 ``` csharp
 TableFunction<T>(Expression<Func<T, dynamic>> properties = null, params object[] values)
 ```
-For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.
+For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.  
 For `values` parameter, comma separated values can be supplied.
 
-It works pretty much the same as StoredProcedure().
-T must be a class where its Description attribute corresponds to the name of the function and its properties, to its parameters.
-But we use ExecuteAndQuery\<T\>() to return an IEnumerable\<T\>.
+It works pretty much the same as StoredProcedure().  
+T must be a class where its Description attribute corresponds to the name of the function and its properties, to its parameters.  
+But we use ExecuteAndQuery\<T\>() to return an IEnumerable\<T\>.  
 For example:
 ``` csharp
 IEnumerable<User> users = await dataContext
@@ -981,11 +982,11 @@ It executes a scalar-valued function.
 ``` csharp
 ScalarFunction<T>(Expression<Func<T, dynamic>> properties = null, params object[] values)
 ```
-For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.
+For `properties` parameter, a lambda expression with an anonymous object containing properties of T can be supplied.  
 For `values` parameter, comma separated values can be supplied.
 
-It works pretty much the same as StoredProcedure() & TableFunction(), but we use ExecuteAndReadScalar\<T\>() to return a value of type T.
-T must be a primitive type (int, string, bool, etc...).
+It works pretty much the same as StoredProcedure() & TableFunction(), but we use ExecuteAndReadScalar\<T\>() to return a value of type T.  
+T must be a primitive type (int, string, bool, etc...).  
 For example:
 ``` csharp
 int userId = await dataContext
@@ -1006,16 +1007,16 @@ SELECT functionName (:p0, :p1, ...) FROM DUAL
 
 We've already barely mentioned SetQuery() at the beginning, but we didn't say anything about GetQuery() yet.
 
-GetQuery() is always available.
-It allows us to get the string built query at any moment, instead of executing it through Dapper, along with the supplied values.
+GetQuery() is always available.  
+It allows us to get the string built query at any moment, instead of executing it through Dapper, along with the supplied values.  
 It returns an object of type IQueryAndValues which has two properties: the string for the query and an array of objects for the values.
 
 The purposes of this method are two:
 1. To use DataContext object just as a QueryBuilder and continue using Dapper as before.
 2. To have the possibility of adding/removing/changing any substring from the query before the execution.
 
-SetQuery() is one of the methods available from DataContext object.
-It has two input parameters: a string for the query and an array of objects for the values (params object[]).
+SetQuery() is one of the methods available from DataContext object.  
+It has two input parameters: a string for the query and an array of objects for the values (params object[]).  
 It gets the query and the values in order to send them to Dapper by any of its available executable methods.
 
 The purposes of this method are two:
@@ -1037,7 +1038,7 @@ IEnumerable<User> users = dataContext
     .Query<User>();
 ```
 
-The other thing you can do for testing Dappator before implementing it in your code is:
+The other thing you can do for testing Dappator before implementing it in your code is:  
 (Suppose you have a hardcoded string query with Dapper in your code)
 1. Replace your hardcoded string query with the Dappator QueryBuilder part, getting the built query with GetQuery() method and sending it to Dapper.
 2. Once you are sure that everything is working fine, replace Dapper and everything related to the DbConnection object with Dappator (DataContext) and begin using Dappator from now on.
@@ -1187,9 +1188,9 @@ For example, if some method (such as, Insert()) expects a parameter with a lambd
 
 Another validation is, for example, that the quantity of properties has to be the same amount as the quantity of values sent in a 'params object[]' parameter.
 
-An another validation is that every class used as T on every method must have a Description attribute for the class and Description attributes for its properties (except for StoredProcedure(), TableFunction() and ScalarFunction() as we've seen earlier).
-So, this validation could present a problem for the following case:
-Imagine you need to join two tables with a relationship of 'one to many' and you want the resulting data into one object which has, by composition, a colletion of objects for the second table.
+An another validation is that every class used as T on every method must have a Description attribute for the class and Description attributes for its properties (except for StoredProcedure(), TableFunction() and ScalarFunction() as we've seen earlier).  
+So, this validation could present a problem for the following case:  
+Imagine you need to join two tables with a relationship of 'one to many' and you want the resulting data into one object which has, by composition, a colletion of objects for the second table.  
 Recall the example from LeftJoin section earlier:
 ``` csharp
 IEnumerable<User> users = (await dataContext
@@ -1197,8 +1198,8 @@ IEnumerable<User> users = (await dataContext
     .LeftJoin<User, Car>(x => x.Id, y => y.UserId, y => new { y.Id, y.Brand })
     .QueryAsync<User, Car, User>(mapper)).Distinct();
 ```
-Here, we are using one of the many Query<T, T, T...>() methods Dapper offers and, of course, DataContext does too.
-So, you declare both 'User' and 'Car' classes as models, where you set Description attributes on their properties. But, User class needs to have a collection property for 'Car' objects that doesn't correspond to any column from User table.
+Here, we are using one of the many Query<T, T, T...>() methods Dapper offers and, of course, DataContext does too.  
+So, you declare both 'User' and 'Car' classes as models, where you set Description attributes on their properties. But, User class needs to have a collection property for 'Car' objects that doesn't correspond to any column from User table.  
 So, you declare User class like this:
 ``` csharp
 namespace Whatever
@@ -1247,15 +1248,15 @@ Every validation message comes from constants variables declared at "Dappator.In
 
 ## Mocking DataContext and all of its methods
 
-We know DataContext implements IDataContext. So, with this interface in mind, we can mock every main method (Select(), Insert(), Update(), etcetera).
-But then, each of them returns an interface that makes available new methods.
+We know DataContext implements IDataContext. So, with this interface in mind, we can mock every main method (Select(), Insert(), Update(), etcetera).  
+But then, each of them returns an interface that makes available new methods.  
 So, all we need to do is to take a look at the interface a method returns to mock it.
 
-For example:
-Select() returns IQueryBuilderJoin.
-This interface makes available InnerJoin(), Where(), Cast(), etcetera.
-Where() returns IQueryBuilderAndOrGroupByOrderBy.
-This interface makes available And(), Or(), OrderBy(), etcetera.
+For example:  
+Select() returns IQueryBuilderJoin.  
+This interface makes available InnerJoin(), Where(), Cast(), etcetera.  
+Where() returns IQueryBuilderAndOrGroupByOrderBy.  
+This interface makes available And(), Or(), OrderBy(), etcetera.  
 OrderBy() returns another interface, but also all of them implement IQueryBuilderQuery in order to have Query() method available at any time.
 
 So, if we have the following query:
@@ -1276,9 +1277,9 @@ You can see some examples of this in the Mock test class discussed later.
 
 ## Tests & Samples
 
-Every test is a sample. You can see Dappator in action on them.
-Tests are in 'Dappator._Provider_.Test' projects.
-For every provider, tests are the same.
+Every test is a sample. You can see Dappator in action on them.  
+Tests are in 'Dappator._Provider_.Test' projects.  
+For every provider, tests are the same.  
 So, inside 'Dappator._Provider_.Test' project you can find the following test classes:
 - QueryBuilder
 - QueryBuilderError
@@ -1287,31 +1288,31 @@ So, inside 'Dappator._Provider_.Test' project you can find the following test cl
 
 ### QueryBuilder test class
 
-In this test class, tests are meant to verify the QueryBuilder part of DataContext.
+In this test class, tests are meant to verify the QueryBuilder part of DataContext.  
 All of them end up with GetQuery() method and assert the string built query along with the values supplied.
 
-So, taking a look at the Assert part of each test can give you an insight about how the query is built.
+So, taking a look at the Assert part of each test can give you an insight about how the query is built.  
 Also, they can give you more examples about building such queries that have not been provided at this documentation.
 
 ### QueryBuilderError test class
 
-In this test class, tests are meant to verify all the validations DataContext does on methods parameters.
-These are examples about how to not use methods from DataContext.
+In this test class, tests are meant to verify all the validations DataContext does on methods parameters.  
+These are examples about how to not use methods from DataContext.  
 Also, they can be useful when you get an ArgumentException() from your code because what you are doing is probably on one of these tests.
 
 ### Mock test class
 
 In this test class, tests are meant to verify methods from a Data Access Layer, like in the real world, by mocking DataContext and all of its methods.
 
-At the bottom of this class, ICustomContext interface and CustomContext class are defined.
-Right above them, there is a SomeDataClass class which has some CRUD methods. All of them make use of CustomContext to do some CRUD action.
+At the bottom of this class, ICustomContext interface and CustomContext class are defined.  
+Right above them, there is a SomeDataClass class which has some CRUD methods. All of them make use of CustomContext to do some CRUD action.  
 Then, every test mock whatever they need and verify the result.
 
 This is a good starting point to begin mocking DataContext.
 
 ### Functional test class
 
-In this test class, tests are meant to make use of Dappator in a real world scenario.
+In this test class, tests are meant to make use of Dappator in a real world scenario.  
 If you want to run these tests:
 1. Create an empty database.
 2. Configure its connectionstring at the beginning of the test class, in Setup() method.
@@ -1327,3 +1328,12 @@ This test class has six regions:
 - Region "Functions": They test the execution of functions on the database, synchronously and asynchronously.
 
 This is a good starting point to begin using Dappator.
+
+## Release Notes
+
+### Version 1.0.1.0
+
+Implemented Dapper version 2.1.44.  
+Main change: Now it is possible to work with 'DateOnly' and 'TimeOnly' for 'Date' and 'Time' columns.  
+This only works for MSSQL, MySql, PostgreSql and Sqlite.  
+Oracle still does not allow these data type columns.

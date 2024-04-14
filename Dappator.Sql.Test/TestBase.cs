@@ -60,12 +60,23 @@ namespace Dappator.Sql.Test
                         [DateTimeOffset] [DATETIMEOFFSET] NULL,
                         [TimeSpan] [TIME] NULL,
                         [Bytes] [BINARY](100) NULL,
-                        [DateOnly] [DATE] NULL,
-                        [TimeOnly] [TIME] NULL,
                         CONSTRAINT [PK_DataType] PRIMARY KEY CLUSTERED ([Id] ASC)
                     )";
 
             this.ExecuteNonQuery(createDataType, dbConnection);
+
+            string createDateAndTime = @"
+                IF NOT EXISTS (SELECT * FROM sys.objects WHERE [type] = 'U' AND name = 'DateAndTime')
+                    CREATE TABLE [DateAndTime] (
+                        [Id] [INT] IDENTITY(1,1) NOT NULL,
+                        [DateTime] [DATETIME] NOT NULL,
+                        [DateOnly] [DATE] NOT NULL,
+                        [TimeOnly] [TIME] NOT NULL,
+                        CONSTRAINT [PK_DateAndTime] PRIMARY KEY CLUSTERED
+                        ( [Id] ASC )
+                    )";
+
+            this.ExecuteNonQuery(createDateAndTime, dbConnection);
 
             string deleteUserValue = "DELETE FROM [UserValue]";
             
@@ -78,6 +89,10 @@ namespace Dappator.Sql.Test
             string deleteDataType = "DELETE FROM [DataType]";
 
             this.ExecuteNonQuery(deleteDataType, dbConnection);
+
+            string deleteDateAndTime = "DELETE FROM [DateAndTime]";
+
+            this.ExecuteNonQuery(deleteDateAndTime, dbConnection);
 
             this.Dispose(dbConnection);
         }

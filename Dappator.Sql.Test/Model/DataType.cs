@@ -67,13 +67,5 @@ namespace Dappator.Sql.Test.Model
 
         [System.ComponentModel.Description("[Bytes]")]
         public byte[] Bytes { get; set; }
-
-#if NET6_0_OR_GREATER
-        [System.ComponentModel.Description("[DateOnly]")]
-        public DateOnly DateOnly { get; set; }
-
-        [System.ComponentModel.Description("[TimeOnly]")]
-        public TimeOnly TimeOnly { get; set; }
-#endif
     }
 }

@@ -9,7 +9,7 @@ namespace Dappator.Interfaces
         /// Constructs the WHERE clause<br/>
         /// Usage:<br/>
         /// .Where&lt;Entity&gt;(x => x.Prop, Operators.EqualTo, 5)<br/>
-        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array)<br/>
+        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array of objects)<br/>
         /// (In case 'Operators.Like' is used, 'value' parameter has to include '%' symbols)<br/>
         /// (In case 'Operators.IsNull' or 'Operators.IsNotNull' is used, 'value' parameter is dismissed)
         /// </summary>

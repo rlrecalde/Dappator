@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 		<TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-		<Version>1.0.1.0</Version>
+		<Version>1.0.1.1</Version>
 		<Title>Dappator.PostgreSql</Title>
 		<Authors>Roberto Recalde</Authors>
 		<Description>Strongly Typed Query Builder + Data Context with Dapper for PostgreSql</Description>
@@ -23,7 +23,7 @@
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<PackageReference Include="Dappator" Version="1.0.1.0" />
+				<PackageReference Include="Dappator" Version="1.0.1.1" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

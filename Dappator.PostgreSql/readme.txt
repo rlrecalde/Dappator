@@ -1,4 +1,4 @@
-﻿Dappator.PostgreSql NuGet Package 1.0.1.0 README
+﻿Dappator.PostgreSql NuGet Package 1.0.1.1 README
 ================================================
 
 April 2024
@@ -9,14 +9,13 @@ This package supports .NET Framework 4.6.1 and above, .NET Standard 2.0 and abov
 Release Notes
 =============
 
-Implemented Dapper version 2.1.44.
-Main change: Now it is possible to work with 'DateOnly' and 'TimeOnly' for 'Date' and 'Time' columns.
+Bugfix regarding queries with Operators.In and Operators.Between
 
 
 Dependencies:
 ============
 
-- Dappator 1.0.1.0
+- Dappator 1.0.1.1
 - Dapper 2.1.44
 - Npgsql 5.0.17 (for .NET Standard 2.0 and above)
 - Npgsql 6.0.10 (for .NET Framework 4.6.1 and above, .NET 5 and .NET 6)

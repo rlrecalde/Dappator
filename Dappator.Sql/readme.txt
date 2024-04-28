@@ -1,4 +1,4 @@
-﻿Dappator.Sql NuGet Package 1.0.1.0 README
+﻿Dappator.Sql NuGet Package 1.0.1.1 README
 =========================================
 
 April 2024
@@ -9,14 +9,13 @@ This package supports .NET Framework 4.6.1 and above, .NET Standard 2.0 and abov
 Release Notes
 =============
 
-Implemented Dapper version 2.1.44.
-Main change: Now it is possible to work with 'DateOnly' and 'TimeOnly' for 'Date' and 'Time' columns.
+Bugfix regarding queries with Operators.In and Operators.Between
 
 
 Dependencies:
 ============
 
-- Dappator 1.0.1.0
+- Dappator 1.0.1.1
 - Dapper 2.1.44
 - Microsoft.Data.SqlClient 5.2.0 (for every version of .NET, except for .NET Framework 4)
 - Microsoft.Data.SqlClient 4.0.5 (for .NET Framework 4)

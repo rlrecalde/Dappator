@@ -414,7 +414,7 @@ For `value` parameter, a value can be supplied.
 For `valueTo` parameter, a value can be supplied.
 
 Special cases:
-- In case 'Dappator.Common.Operators.In' is used, 'value' parameter has to be an Array.
+- In case 'Dappator.Common.Operators.In' is used, 'value' parameter has to be an Array of objects.
 - In case 'Dappator.Common.Operators.Like' is used, 'value' parameter has to include '%' symbols if it's necessary.
 - In case 'Dappator.Common.Operators.IsNull' or 'Dappator.Common.Operators.IsNotNull' is used, 'value' parameter must not be supplied.
 - In case 'Dappator.Common.Operators.Between' is used, 'valueTo' parameter must also be supplied.
@@ -1330,6 +1330,10 @@ This test class has six regions:
 This is a good starting point to begin using Dappator.
 
 ## Release Notes
+
+### Version 1.0.1.1
+
+Bugfix regarding queries with Operators.In and Operators.Between.  
 
 ### Version 1.0.1.0
 

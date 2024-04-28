@@ -9,7 +9,7 @@ namespace Dappator.Interfaces
         /// Constructs an AND clause to be used with a WHERE clause<br/>
         /// Usage:<br/>
         /// .And&lt;Entity&gt;(x => x.Prop, Operators.EqualTo, 5)<br/>
-        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array)<br/>
+        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array of objects)<br/>
         /// (In case 'Operators.Like' is used, 'value' parameter has include '%' symbols)<br/>
         /// (In case 'Operators.IsNull' or 'Operators.IsNotNull' is used, 'value' parameter is dismissed)
         /// </summary>
@@ -27,7 +27,7 @@ namespace Dappator.Interfaces
         /// Constructs an OR clause to be used with a WHERE clause<br/>
         /// Usage:<br/>
         /// .Or&lt;Entity&gt;(x => x.Prop, Operators.EqualTo, 5)<br/>
-        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array)<br/>
+        /// (In case 'Operators.In' is used, 'value' parameter has to be an Array of objects)<br/>
         /// (In case 'Operators.Like' is used, 'value' parameter has include '%' symbols)<br/>
         /// (In case 'Operators.IsNull' or 'Operators.IsNotNull' is used, 'value' parameter is dismissed)
         /// </summary>

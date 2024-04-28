@@ -159,7 +159,12 @@ namespace Dappator.Internal
                     values[i] = aValue[i];
             }
 
-            base.SetTypes(new Type[] { propertyType });
+            Type[] types = new Type[values.Length];
+
+            for (int i = 0; i < values.Length; i++)
+                types[i] = propertyType;
+
+            base.SetTypes(types);
             base.SetValues(values);
         }
 

@@ -1,4 +1,4 @@
-﻿Dappator.Sqlite NuGet Package 1.0.1.0 README
+﻿Dappator.Sqlite NuGet Package 1.0.1.1 README
 ============================================
 
 April 2024
@@ -9,14 +9,13 @@ This package supports .NET Framework 4.6.1 and above, .NET Standard 2.0 and abov
 Release Notes
 =============
 
-Implemented Dapper version 2.1.44.
-Main change: Now it is possible to work with 'DateOnly' and 'TimeOnly' for 'Date' and 'Time' columns.
+Bugfix regarding queries with Operators.In and Operators.Between
 
 
 Dependencies:
 ============
 
-- Dappator 1.0.1.0
+- Dappator 1.0.1.1
 - Dapper 2.1.44
 - System.Data.SQLite 1.0.118 (for .NET Framework 4.6.1 and above)
 - Microsoft.Data.Sqlite.Core 8.0.3 (for .NET Standard 2.0 and above, .NET 5, .NET 6, .NET 7 and .NET 8)

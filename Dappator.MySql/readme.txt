@@ -1,4 +1,4 @@
-﻿Dappator.MySql NuGet Package 1.0.1.0 README
+﻿Dappator.MySql NuGet Package 1.0.1.1 README
 ===========================================
 
 April 2024
@@ -9,14 +9,13 @@ This package supports .NET Framework 4.6.1 and above, .NET Standard 2.0 and abov
 Release Notes
 =============
 
-Implemented Dapper version 2.1.44.
-Main change: Now it is possible to work with 'DateOnly' and 'TimeOnly' for 'Date' and 'Time' columns.
+Bugfix regarding queries with Operators.In and Operators.Between
 
 
 Dependencies:
 ============
 
-- Dappator 1.0.1.0
+- Dappator 1.0.1.1
 - Dapper 2.1.44
 - MySqlConnector 2.2.7 (for every version of .NET, except for .NET 7 and .NET 8)
 - MySqlConnector 2.3.6 (for .NET 7 and .NET 8)

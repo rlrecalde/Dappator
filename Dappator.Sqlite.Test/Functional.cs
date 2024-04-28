@@ -2795,6 +2795,276 @@ namespace Dappator.Sqlite.Test
         }
 
         [Test]
+        public void Select_Where_In()
+        {
+            #region Arrange
+
+            var user1 = new Model.User
+            {
+                Nick = "Nick1",
+                Password = "Password1",
+            };
+
+            base.InsertUser(user1);
+
+            var user2 = new Model.User
+            {
+                Nick = "Nick2",
+                Password = "Password2",
+            };
+
+            base.InsertUser(user2);
+
+            var user3 = new Model.User
+            {
+                Nick = "Nick3",
+                Password = "Password3",
+            };
+
+            base.InsertUser(user3);
+
+            var users = new List<Model.User> { user1, user2, user3 };
+            object[] userIds = new object[] { user1.Id, user3.Id };
+
+            #endregion
+
+            #region Act
+
+            var dataContext = new DataContext(base._sqliteConnection, preventClosing: true);
+
+            IEnumerable<Model.User> usersReturned = dataContext
+                .Select<Model.User>(x => new { x.Id, x.Nick, x.Password })
+                .Where<Model.User>(x => x.Id, Common.Operators.In, userIds)
+                .Query<Model.User>();
+
+            #endregion
+
+            #region Assert
+
+            IEnumerable<Model.User> expectedUsers = users.Where(x => userIds.Contains(x.Id));
+
+            Assert.That(usersReturned.Count(), Is.EqualTo(expectedUsers.Count()));
+
+            foreach (var expectedUser in expectedUsers)
+            {
+                Model.User userReturned = usersReturned.FirstOrDefault(x => x.Id == expectedUser.Id);
+
+                Assert.IsNotNull(userReturned);
+                Assert.That(userReturned.Nick, Is.EqualTo(expectedUser.Nick));
+                Assert.That(userReturned.Password, Is.EqualTo(expectedUser.Password));
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public async Task Select_Where_In_Async()
+        {
+            #region Arrange
+
+            var user1 = new Model.User
+            {
+                Nick = "Nick1",
+                Password = "Password1",
+            };
+
+            base.InsertUser(user1);
+
+            var user2 = new Model.User
+            {
+                Nick = "Nick2",
+                Password = "Password2",
+            };
+
+            base.InsertUser(user2);
+
+            var user3 = new Model.User
+            {
+                Nick = "Nick3",
+                Password = "Password3",
+            };
+
+            base.InsertUser(user3);
+
+            var users = new List<Model.User> { user1, user2, user3 };
+            object[] userIds = new object[] { user1.Id, user3.Id };
+
+            #endregion
+
+            #region Act
+
+            var dataContext = new DataContext(base._sqliteConnection, preventClosing: true);
+
+            IEnumerable<Model.User> usersReturned = await dataContext
+                .Select<Model.User>(x => new { x.Id, x.Nick, x.Password })
+                .Where<Model.User>(x => x.Id, Common.Operators.In, userIds)
+                .QueryAsync<Model.User>();
+
+            #endregion
+
+            #region Assert
+
+            IEnumerable<Model.User> expectedUsers = users.Where(x => userIds.Contains(x.Id));
+
+            Assert.That(usersReturned.Count(), Is.EqualTo(expectedUsers.Count()));
+
+            foreach (var expectedUser in expectedUsers)
+            {
+                Model.User userReturned = usersReturned.FirstOrDefault(x => x.Id == expectedUser.Id);
+
+                Assert.IsNotNull(userReturned);
+                Assert.That(userReturned.Nick, Is.EqualTo(expectedUser.Nick));
+                Assert.That(userReturned.Password, Is.EqualTo(expectedUser.Password));
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public void Select_Where_Between()
+        {
+            #region Arrange
+
+            var user1 = new Model.User
+            {
+                Nick = "Nick1",
+                Password = "Password1",
+            };
+
+            base.InsertUser(user1);
+
+            var user2 = new Model.User
+            {
+                Nick = "Nick2",
+                Password = "Password2",
+            };
+
+            base.InsertUser(user2);
+
+            var user3 = new Model.User
+            {
+                Nick = "Nick3",
+                Password = "Password3",
+            };
+
+            base.InsertUser(user3);
+
+            var user4 = new Model.User
+            {
+                Nick = "Nick4",
+                Password = "Password4",
+            };
+
+            base.InsertUser(user4);
+
+            var users = new List<Model.User> { user1, user2, user3, user4 };
+            int minUserId = user2.Id;
+            int maxUserId = user4.Id;
+
+            #endregion
+
+            #region Act
+
+            var dataContext = new DataContext(base._sqliteConnection, preventClosing: true);
+
+            IEnumerable<Model.User> usersReturned = dataContext
+                .Select<Model.User>(x => new { x.Id, x.Nick, x.Password })
+                .Where<Model.User>(x => x.Id, Common.Operators.Between, minUserId, maxUserId)
+                .Query<Model.User>();
+
+            #endregion
+
+            #region Assert
+
+            IEnumerable<Model.User> expectedUsers = users.Where(x => x.Id >= minUserId && x.Id <= maxUserId);
+
+            Assert.That(usersReturned.Count(), Is.EqualTo(expectedUsers.Count()));
+
+            foreach (var expectedUser in expectedUsers)
+            {
+                Model.User userReturned = usersReturned.FirstOrDefault(x => x.Id == expectedUser.Id);
+
+                Assert.IsNotNull(userReturned);
+                Assert.That(userReturned.Nick, Is.EqualTo(expectedUser.Nick));
+                Assert.That(userReturned.Password, Is.EqualTo(expectedUser.Password));
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public async Task Select_Where_Between_Async()
+        {
+            #region Arrange
+
+            var user1 = new Model.User
+            {
+                Nick = "Nick1",
+                Password = "Password1",
+            };
+
+            base.InsertUser(user1);
+
+            var user2 = new Model.User
+            {
+                Nick = "Nick2",
+                Password = "Password2",
+            };
+
+            base.InsertUser(user2);
+
+            var user3 = new Model.User
+            {
+                Nick = "Nick3",
+                Password = "Password3",
+            };
+
+            base.InsertUser(user3);
+
+            var user4 = new Model.User
+            {
+                Nick = "Nick4",
+                Password = "Password4",
+            };
+
+            base.InsertUser(user4);
+
+            var users = new List<Model.User> { user1, user2, user3, user4 };
+            int minUserId = user2.Id;
+            int maxUserId = user4.Id;
+
+            #endregion
+
+            #region Act
+
+            var dataContext = new DataContext(base._sqliteConnection, preventClosing: true);
+
+            IEnumerable<Model.User> usersReturned = await dataContext
+                .Select<Model.User>(x => new { x.Id, x.Nick, x.Password })
+                .Where<Model.User>(x => x.Id, Common.Operators.Between, minUserId, maxUserId)
+                .QueryAsync<Model.User>();
+
+            #endregion
+
+            #region Assert
+
+            IEnumerable<Model.User> expectedUsers = users.Where(x => x.Id >= minUserId && x.Id <= maxUserId);
+
+            Assert.That(usersReturned.Count(), Is.EqualTo(expectedUsers.Count()));
+
+            foreach (var expectedUser in expectedUsers)
+            {
+                Model.User userReturned = usersReturned.FirstOrDefault(x => x.Id == expectedUser.Id);
+
+                Assert.IsNotNull(userReturned);
+                Assert.That(userReturned.Nick, Is.EqualTo(expectedUser.Nick));
+                Assert.That(userReturned.Password, Is.EqualTo(expectedUser.Password));
+            }
+
+            #endregion
+        }
+
+        [Test]
         public void Select_Limit()
         {
             #region Arrange
